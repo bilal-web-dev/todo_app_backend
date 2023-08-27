@@ -1,7 +1,7 @@
 import errorHandler from "../middlewares/error.js";
 import { Task } from "../models/task.js";
 
-export const getMyTasks = async (req, res, next) => { 
+export const getMyTasks = async (req, res, next) => {
   try {
     const { id } = req.user;
     const tasks = await Task.find({ user: id });
@@ -41,8 +41,7 @@ export const update = async (req, res, next) => {
 
     const task = await Task.findById(id);
 
-    
-    if (!task) return next(new errorHandler("Task not found", 404))
+    if (!task) return next(new errorHandler("Task not found", 404));
 
     task.isCompleted = !task.isCompleted;
     await task.save();
@@ -63,7 +62,7 @@ export const deleteTask = async (req, res, next) => {
 
     const task = await Task.findById(id);
 
-    if (!task) return next(new errorHandler("Task not found", 404))
+    if (!task) return next(new errorHandler("Task not found", 404));
 
     await task.deleteOne();
 
